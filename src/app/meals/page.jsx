@@ -1,42 +1,48 @@
-"use client"
-import React, { useEffect, useState } from 'react';
 
-const MealsPage = () => {
-    const [meals, setMeals] = useState([]);
-    const [search, setSearch] = useState('');
+import MealsSearchInout from '../meals/components/mealsSearchInout';
 
-    const fetchMeals = async () => {
+
+const mealsPage = async ({ searchParams }) => {
+    const query = await searchParams.search;
+    // const meals = []
+
+    const FetchMeals = async () => {
+
         try {
-            const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)
+            const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
             const data = await res.json();
-            setMeals(data?.meals || [])
-            return data.meals
+            // setMeals(data?.meals || [])
+            return data?.meals;
         }
         catch (error) {
-            console.log(error)
+            console.log(error);
+            return []
         }
-    }
 
-    useEffect(() => {
-        fetchMeals()
-    }, [search])
+    }
+    const All_meals = await FetchMeals();
+
+
+
     return (
         <div>
-            <div className='text-center mt-10'>
-                <p className='font-bold'>Search Dish Name </p>
-                <input className='border' type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <div>
+                <MealsSearchInout></MealsSearchInout>
             </div>
-            <div className='grid grid-cols-4 gap-5 m-10'>
 
-
-                {/* <h1>{JSON.stringify(meals)}</h1> */}
-
+            <div>
                 {
-                    meals.map(item => {
+                    All_meals?.map(item => {
+
                         return (
-                            <div className='p-5 border m-5'>
-                                <p className='font-bold'>{item?.strMeal}</p>
-                                <p>Instructions:{item?.strInstructions}</p>
+                            <div className='m-10' key={item.id}>
+                                <p className='text-center font-bold'>---- {item.strMeal} ----</p>
+                                <p className='text-center '>{item.strCategory}</p>
+                                <div className='flex gap-10 items-center'>
+                                    <img className='w-25 h-25 rounded' src={item.strMealThumb} alt="" />
+                                    <p>{item.strInstructions}</p>
+                                    <img className='w-25 h-25 rounded' src={item.strMealThumb} alt="" />
+                                </div>
                             </div>
                         )
                     })
@@ -46,4 +52,4 @@ const MealsPage = () => {
     );
 };
 
-export default MealsPage;
+export default mealsPage;

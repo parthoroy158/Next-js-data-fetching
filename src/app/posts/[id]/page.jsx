@@ -6,11 +6,28 @@ export const SinglePage = async (post_id) => {
     return data;
 }
 
+export async function generateMetadata({ params }) {
+    // read route params
+    const id = await params.id;
+
+
+
+    // fetch data
+    const singlePost = await SinglePage(id)
+    // optionally access and extend (rather than replace) parent metadata
+    // const previousImages = (await parent).openGraph?.images || []
+
+    return {
+        title: singlePost.title,
+        description: singlePost.body
+    }
+}
+
 
 const SinglePost = async ({ params }) => {
-    const p = await params;
-    console.log('This is the params', p)
-    const singlePost = await SinglePage(p.id)
+    const p_id = await params;
+    console.log('This is the params', p_id)
+    const singlePost = await SinglePage(p_id.id)
     return (
         <div className='h-screen place-content-center place-items-center'>
             <div className='m-10 border w-200 p-5'>
