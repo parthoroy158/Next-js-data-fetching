@@ -33,7 +33,6 @@ const PostsPage = async () => {
                             </p>
                         </div>
                     )
-
                 })
             }
         </div >

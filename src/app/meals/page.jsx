@@ -1,7 +1,13 @@
 
+import Link from 'next/link';
 import MealsSearchInout from '../meals/components/mealsSearchInout';
+import Image from 'next/image';
 
-
+export const metadata = {
+    title: "All Meals",
+    description: "All the meals are here",
+    keywords: ['Next.js', 'React', 'JavaScript', 'meals'],
+};
 const mealsPage = async ({ searchParams }) => {
     const query = await searchParams.search;
     // const meals = []
@@ -39,10 +45,17 @@ const mealsPage = async ({ searchParams }) => {
                                 <p className='text-center font-bold'>---- {item.strMeal} ----</p>
                                 <p className='text-center '>{item.strCategory}</p>
                                 <div className='flex gap-10 items-center'>
-                                    <img className='w-25 h-25 rounded' src={item.strMealThumb} alt="" />
-                                    <p>{item.strInstructions}</p>
-                                    <img className='w-25 h-25 rounded' src={item.strMealThumb} alt="" />
+
+                                    <div>
+                                        <Image src={item.strMealThumb} width={641} height={641}></Image>
+                                        <p>{item.strInstructions}</p>
+                                        <Link href={`/meals/${item.idMeal}`}>
+                                            <button className='text-center flex justify-center btn btn-active bg-amber-800 p-1 rounded'>Details</button>
+                                        </Link>
+                                    </div>
+
                                 </div>
+
                             </div>
                         )
                     })
