@@ -1,20 +1,15 @@
 import dbConnect from "@/lib/dbConnect"
 
+
 export async function GET() {
 
-    const data = await dbConnect("collectionName").find({}).toArray()
+    const data = await dbConnect('collectionName').find({}).toArray()
 
-    return Response.json( data )
+    return Response.json(data)
 }
-
 
 export async function POST(req) {
-
-
-    console.log(req)
-
-    const postedData = await req.json()
-
-    return Response.json({ postedData })
+    const postData = await req.json()
+    const data = await dbConnect('collectionName').insertOne(postData)
+    return Response.json(data)
 }
-

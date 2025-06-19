@@ -18,6 +18,12 @@ const Navbar = () => {
                 <Link href='/meals'>
                     <li>Meals</li>
                 </Link>
+                <Link href='/products'>
+                    <li>Products</li>
+                </Link>
+                <Link href='/products/add'>
+                    <li>Add Products</li>
+                </Link>
                 <Link href='/login'>
                     <li>Log In</li>
                 </Link>

@@ -3,7 +3,6 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 function dbConnect(collectionName) {
 
     const uri = process.env.MONGODB_URI
-    // console.log(uri)
     // Create a MongoClient with a MongoClientOptions object to set the Stable API version
     const client = new MongoClient(uri, {
         serverApi: {
@@ -13,7 +12,7 @@ function dbConnect(collectionName) {
         }
     });
 
-    return client.db(process.env.DB_NAME).collection(collectionName)
+    return client.db(process.env.USER_NAME).collection(collectionName);
 }
 
 export default dbConnect
